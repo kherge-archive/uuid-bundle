@@ -19,6 +19,14 @@ class KHerGeUuidExtension extends Extension
     /**
      * {@inheritdoc}
      */
+    public function getAlias()
+    {
+        return 'kherge_uuid';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $processor = new Processor();
