@@ -1,0 +1,54 @@
+{
+    "type": "symfony-bundle",
+    "name": "kherge/uuid-bundle",
+    "description": "Integrates the UUID library with Symfony 2.",
+    "keywords": ["bundle", "symfony", "uuid"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/kherge/uuid-bundle/issues",
+        "source": "https://github.com/kherge/uuid-bundle"
+    },
+
+    "authors": [
+        {
+            "name": "Kevin Herrera",
+            "email": "kevin@herrera.io",
+            "homepage": "http://kevin.herrera.io/",
+            "role": "Developer"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "KHerGe\\Bundle\\UuidBundle\\": ""
+        }
+    },
+
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+
+    "require": {
+        "php": ">=5.4",
+
+        "ramsey/uuid": "^3.2",
+        "symfony/config": "^2.8",
+        "symfony/dependency-injection": "^2.8",
+        "symfony/http-kernel": "^2.8"
+    },
+
+    "require-dev": {
+        "doctrine/dbal": "^2.5",
+        "moontoast/math": "^1.1",
+        "ramsey/uuid-doctrine": "^1.1"
+    },
+
+    "suggest": {
+        "ext-libsodium": "For use as a CSPRNG.",
+        "ext-uuid": "For generating time-based UUIDs.",
+        "moontoast/math": "For supporting large numbers on 32-bit platforms.",
+        "ramsey/uuid-doctrine": "For registering a uuid type with Doctrine."
+    }
+}
