@@ -1,0 +1,5 @@
+# composer dependencies
+/vendor/
+
+# composer files
+/composer.lock
