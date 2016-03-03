@@ -29,4 +29,16 @@ class KHerGeUuidBundle extends Bundle
             Uuid::setFactory($this->container->get('kherge_uuid.uuid_factory'));
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getContainerExtension()
+    {
+        if (null === $this->extension) {
+            $this->extension = $this->createContainerExtension();
+        }
+
+        return $this->extension;
+    }
 }
