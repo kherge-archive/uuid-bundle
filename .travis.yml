@@ -6,6 +6,7 @@ before_install:
     - bash .travis/install/libsodium.sh
     - bash .travis/install/uuid.sh
     - bash .travis/install/composer.sh
+    - phpenv config-add .travis/extensions.ini
 
 branches:
     only:
