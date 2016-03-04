@@ -14,6 +14,7 @@ use Symfony\Component\Config\Definition\Processor;
  * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration
  * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Builder\DefaultUuidBuilder
  * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Builder\DegradedUuidBuilder
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Codec\GuidStringCodec
  * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Codec\StringCodec
  * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\FeatureSet
  * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Generator\CombGenerator
