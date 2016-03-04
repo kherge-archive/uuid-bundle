@@ -62,6 +62,19 @@ class KHerGeUuidBundleTest extends TestCase
     }
 
     /**
+     * Verify that the method override functions as intended.
+     *
+     * @covers ::getContainerExtension
+     */
+    public function testGetContainerExtensionOverride()
+    {
+        self::assertInstanceOf(
+            'KHerGe\Bundle\UuidBundle\DependencyInjection\KHerGeUuidExtension',
+            $this->bundle->getContainerExtension()
+        );
+    }
+
+    /**
      * Creates the processor and configuration tree builder.
      */
     protected function setUp()
