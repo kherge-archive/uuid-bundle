@@ -16,6 +16,8 @@ class KHerGeUuidExtension extends Extension
 {
     /**
      * {@inheritdoc}
+     *
+     * @codeCoverageIgnore
      */
     public function getAlias()
     {
