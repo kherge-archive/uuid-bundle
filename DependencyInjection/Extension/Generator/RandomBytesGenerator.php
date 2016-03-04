@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 /**
  * Registers `RandomBytesGenerator` as a service.
  *
- * @author Kevin Herrera <kherrera@ebsco.com>
+ * @author Kevin Herrera <kevin@herrera.io>
  */
 class RandomBytesGenerator extends AbstractExtension
 {

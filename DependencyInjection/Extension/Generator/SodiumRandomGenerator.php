@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 /**
  * Registers `SodiumRandomGenerator` as a service.
  *
- * @author Kevin Herrera <kherrera@ebsco.com>
+ * @author Kevin Herrera <kevin@herrera.io>
  */
 class SodiumRandomGenerator extends AbstractExtension
 {

@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 /**
  * Adds definitions for the `StringCodec`.
  *
- * @author Kevin Herrera <kherrera@ebsco.com>
+ * @author Kevin Herrera <kevin@herrera.io>
  */
 class StringCodec
 {

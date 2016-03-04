@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 /**
  * Adds definitions for the `DefaultUuidBulider`.
  *
- * @author Kevin Herrera <kherrera@ebsco.com>
+ * @author Kevin Herrera <kevin@herrera.io>
  */
 class DefaultUuidBuilder
 {
