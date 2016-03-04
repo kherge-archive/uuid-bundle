@@ -11,7 +11,17 @@ use Symfony\Component\Config\Definition\Processor;
  *
  * @author Kevin Herrera <kevin@herrera.io>
  *
- * @coversDefaultClass \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Builder\DefaultUuidBuilder
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Builder\DegradedUuidBuilder
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Codec\StringCodec
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\FeatureSet
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Generator\CombGenerator
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Generator\DefaultTimeGenerator
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Generator\RandomLibAdapter
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Provider\Node\FallbackNodeProvider
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Provider\Time\FixedTimeProvider
+ * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\UuidFactory
  */
 class ConfigurationTest extends TestCase
 {
@@ -30,104 +40,57 @@ class ConfigurationTest extends TestCase
     private $processor;
 
     /**
-     * Verifies that the default settings are defined as expected.
-     *
-     * @covers ::getConfigTreeBuilder
-     * @covers ::addFeatureSet
-     * @covers ::addUuidFactory
+     * Verify that all of the default settings are present.
      */
     public function testDefaults()
     {
         self::assertEquals(
             [
+                'builder' => [
+                    'default' => [
+                        'number_converter' => 'kherge_uuid.number_converter.degraded'
+                    ],
+                    'degraded' => [
+                        'number_converter' => 'kherge_uuid.number_converter.degraded'
+                    ]
+                ],
+                'codec' => [
+                    'guid' => [
+                        'uuid_builder' => 'kherge_uuid.builder.default'
+                    ],
+                    'string' => [
+                        'uuid_builder' => 'kherge_uuid.builder.default'
+                    ]
+                ],
+                'generator' => [
+                    'comb' => [
+                        'random_generator' => 'kherge_uuid.generator.mt_rand',
+                        'number_converter' => 'kherge_uuid.number_converter.degraded'
+                    ],
+                    'default_time' => [
+                        'node_provider' => 'kherge_uuid.node_provider.system',
+                        'time_converter' => 'kherge_uuid.time_converter.degraded',
+                        'time_provider' => 'kherge_uuid.time_provider.system'
+                    ]
+                ],
                 'feature_set' => [
                     'disable_big_number' => false,
                     'disable_system_node' => false,
                     'force_32bit' => false,
+                    'time_provider' => 'kherge_uuid.time_provider.system',
                     'use_guids' => false,
-                    'use_pecl' => false,
+                    'use_pecl' => false
                 ],
                 'uuid_factory' => [
-                    'feature_set' => [
-                        'id' => 'kherge_uuid.feature_set'
-                    ],
-                    'global' => false
+                    'feature_set' => 'kherge_uuid.feature_set',
+                    'global' => false,
+                    'number_converter' => 'kherge_uuid.number_converter.degraded',
+                    'random_generator' => 'kherge_uuid.generator.mt_rand',
+                    'time_generator' => 'kherge_uuid.generator.default_time',
+                    'uuid_builder' => 'kherge_uuid.builder.default'
                 ]
             ],
             $this->processConfig()
-        );
-    }
-
-    /**
-     * Verifies that user provided settings are validated as expected.
-     *
-     * @covers ::getConfigTreeBuilder
-     * @covers ::addFeatureSet
-     * @covers ::addUuidFactory
-     */
-    public function testProcess()
-    {
-        self::assertEquals(
-            [
-                'feature_set' => [
-                    'disable_big_number' => false,
-                    'disable_system_node' => false,
-                    'force_32bit' => false,
-                    'time_provider' => [
-                        'id' => 'test.time_provider'
-                    ],
-                    'use_guids' => false,
-                    'use_pecl' => true,
-                ],
-                'uuid_factory' => [
-                    'feature_set' => [
-                        'id' => 'test.feature_set'
-                    ],
-                    'global' => true,
-                    'number_converter' => [
-                        'id' => 'test.number_converter'
-                    ],
-                    'random_generator' => [
-                        'id' => 'test.random_generator'
-                    ],
-                    'time_generator' => [
-                        'id' => 'test.time_generator'
-                    ],
-                    'uuid_builder' => [
-                        'id' => 'test.uuid_builder'
-                    ],
-                ]
-            ],
-            $this->processConfig(
-                [
-                    [
-                        'feature_set' => [
-                            'time_provider' => [
-                                'id' => 'test.time_provider'
-                            ],
-                            'use_pecl' => true,
-                        ],
-                        'uuid_factory' => [
-                            'feature_set' => [
-                                'id' => 'test.feature_set'
-                            ],
-                            'global' => true,
-                            'number_converter' => [
-                                'id' => 'test.number_converter'
-                            ],
-                            'random_generator' => [
-                                'id' => 'test.random_generator'
-                            ],
-                            'time_generator' => [
-                                'id' => 'test.time_generator'
-                            ],
-                            'uuid_builder' => [
-                                'id' => 'test.uuid_builder'
-                            ],
-                        ]
-                    ]
-                ]
-            )
         );
     }
 

@@ -19,127 +19,102 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $tree = new TreeBuilder();
-        $root = $tree->root('kherge_uuid');
+        $root = $tree
+            ->root('kherge_uuid')
+            ->children()
+        ;
 
-        $this->addFeatureSet($root->children());
-        $this->addUuidFactory($root->children());
+        $this->register(
+            $root
+                ->arrayNode('builder')
+                ->info('Settings for UUID builder services.')
+                ->addDefaultsIfNotSet()
+                ->children(),
+            'Builder'
+        );
+
+        $this->register(
+            $root
+                ->arrayNode('codec')
+                ->info('Settings for UUID encoding/decoding services.')
+                ->addDefaultsIfNotSet()
+                ->children(),
+            'Codec'
+        );
+
+        $this->register(
+            $root
+                ->arrayNode('generator')
+                ->info('Settings for random byte and time generation services.')
+                ->addDefaultsIfNotSet()
+                ->children(),
+            'Generator'
+        );
+
+        $this->register(
+            $root
+                ->arrayNode('node_provider')
+                ->info('Settings for node ID provider services.')
+                ->children(),
+            'Provider/Node'
+        );
+
+        $this->register(
+            $root
+                ->arrayNode('time_provider')
+                ->info('Settings for time provider services.')
+                ->children(),
+            'Provider/Time'
+        );
+
+        $this->register($root, '');
 
         return $tree;
     }
 
     /**
-     * Adds the definitions for configuring the `FeatureSet` class.
+     * Uses a directory of configuration definition classes to build the tree.
      *
-     * @param NodeBuilder $node The node bulider.
+     * @param NodeBuilder $node The node builder.
+     * @param string      $dir  The name of the directory of classes.
      */
-    private function addFeatureSet(NodeBuilder $node)
+    private function register(NodeBuilder $node, $dir)
     {
-        $node
-            ->arrayNode('feature_set')
-                ->info('Settings for the `FeatureSet` class.')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->booleanNode('disable_big_number')
-                        ->info('Disable the use of the BigNumber library?')
-                        ->defaultFalse()
-                    ->end()
-                    ->booleanNode('disable_system_node')
-                        ->info('Disable the use of the system node ID?')
-                        ->defaultFalse()
-                    ->end()
-                    ->booleanNode('force_32bit')
-                        ->info('Force 32-bit mode? (requires BigNumber library)')
-                        ->defaultFalse()
-                    ->end()
-                    ->arrayNode('time_provider')
-                        ->info('The service to use as the time provider.')
-                        ->children()
-                            ->scalarNode('id')
-                                ->info('If not set, PECL or system will be used.')
-                                ->cannotBeEmpty()
-                                ->isRequired()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->booleanNode('use_guids')
-                        ->info('Encode and decode Microsoft variant UUIDs?')
-                        ->defaultFalse()
-                    ->end()
-                    ->booleanNode('use_pecl')
-                        ->info('Use PECL extension to generate time-based UUIDs?')
-                        ->defaultFalse()
-                    ->end()
-                ->end()
-            ->end()
-        ;
-    }
+        if (empty($dir)) {
+            $path = __DIR__ . DIRECTORY_SEPARATOR . 'Configuration';
+        } else {
+            $path = sprintf(
+                '%s%s%s%s%s',
+                __DIR__,
+                DIRECTORY_SEPARATOR,
+                'Configuration',
+                DIRECTORY_SEPARATOR,
+                $dir
+            );
+        }
 
-    /**
-     * Adds the definitions for configuring the `UuidFactory` class.
-     *
-     * @param NodeBuilder $node The node bulider.
-     */
-    private function addUuidFactory(NodeBuilder $node)
-    {
-        $node
-            ->arrayNode('uuid_factory')
-                ->info('Settings for the `UuidFactory` class.')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->arrayNode('feature_set')
-                        ->info('The `FeatureSet` service to use.')
-                        ->addDefaultsIfNotSet()
-                        ->cannotBeEmpty()
-                        ->children()
-                            ->scalarNode('id')
-                                ->cannotBeEmpty()
-                                ->defaultValue('kherge_uuid.feature_set')
-                                ->isRequired()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->booleanNode('global')
-                        ->info('Set the factory singleton on `Uuid`?')
-                        ->defaultFalse()
-                    ->end()
-                    ->arrayNode('number_converter')
-                        ->info('The service to use as the number converter.')
-                        ->children()
-                            ->scalarNode('id')
-                                ->defaultNull()
-                                ->isRequired()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->arrayNode('random_generator')
-                        ->info('The service to use as the random byte generator.')
-                        ->children()
-                            ->scalarNode('id')
-                                ->defaultNull()
-                                ->isRequired()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->arrayNode('time_generator')
-                        ->info('The service to use as the time generator.')
-                        ->children()
-                            ->scalarNode('id')
-                                ->defaultNull()
-                                ->isRequired()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->arrayNode('uuid_builder')
-                        ->info('The service to use as the UUID builder.')
-                        ->children()
-                            ->scalarNode('id')
-                                ->defaultNull()
-                                ->isRequired()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
+        foreach (scandir($path) as $class) {
+            $file = $path . DIRECTORY_SEPARATOR . $class;
+
+            if (empty($dir)) {
+                $class = sprintf(
+                    '%s\Configuration\%s',
+                    __NAMESPACE__,
+                    explode('.', $class)[0]
+                );
+            } else {
+                $class = sprintf(
+                    '%s\Configuration\%s\%s',
+                    __NAMESPACE__,
+                    str_replace('/', '\\', $dir),
+                    explode('.', $class)[0]
+                );
+            }
+
+            if (is_file($file)) {
+                $instance = new $class();
+                $instance->addDefinitions($node);
+            }
+        }
     }
 }
