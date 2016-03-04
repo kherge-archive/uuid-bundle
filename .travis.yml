@@ -5,6 +5,7 @@ cache:
 before_install:
     - composer install
     - pecl install libsodium
+    - pecl install uuid
     - if [ '' != "$SYMFONY_VERSION" ]; then composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION; fi
     - if [ '7.0' != "$TRAVIS_PHP_VERSION" ]; then composer require paragonie/random_compat; fi
 
