@@ -13,10 +13,10 @@ function must
 }
 
 # Update package list.
-must apt-get update
+must sudo apt-get update
 
 # Install build packages.
-must apt-get install make build-essential automake php5-dev php-pear
+must sudo apt-get install make build-essential automake php5-dev php-pear
 
 # Clone libsodium repository.
 must git clone git://github.com/jedisct1/libsodium.git
@@ -31,7 +31,7 @@ must ./configure
 must make
 
 # Install libsodium.
-must make install
+must sudo make install
 
 # Install PECL extension
-must pecl install libsodium
+must sudo pecl install libsodium

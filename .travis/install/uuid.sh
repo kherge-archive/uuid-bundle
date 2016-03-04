@@ -13,4 +13,4 @@ function must
 }
 
 # Install PECL extension
-yes '' | must pecl install uuid
+yes '' | must sudo pecl install uuid
