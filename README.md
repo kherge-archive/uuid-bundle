@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kherge/uuid-bundle.svg?branch=master)](https://travis-ci.org/kherge/uuid-bundle)
+
 UUID Bundle
 ===========
 
@@ -43,7 +45,7 @@ settings will work with its classes.
 
 ### Recommended Settings
 
-This will allow you to generate secure v5 UUIDs, but requires that you
+This will allow you to generate secure UUIDs, but requires that you
 have the `moontoast/math` package and `libsodium` extension installed.
 
 ```yaml
