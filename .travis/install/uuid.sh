@@ -7,7 +7,7 @@ HERE="$(dirname "$0")"
 . "$HERE/shared.sh"
 
 # Install the UUID library.
-must sudo apt-get install libuuid1
+must sudo apt-get install uuid uuid-dev
 
 # Install PECL extension
 yes '' | must sudo pecl install uuid
