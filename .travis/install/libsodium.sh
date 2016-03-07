@@ -28,9 +28,4 @@ must make
 must sudo make install
 
 # Install PECL extension
-must sudo pecl install libsodium
-
-# Something is broken with Travis CI.
-if [ '5.4' = "$TRAVIS_PHP_VERSION" ]; then
-    must ln -s /usr/lib/php5/20090626/libsodium.so /home/travis/.phpenv/versions/5.4.45/lib/php/extensions/no-debug-zts-20100525/libsodium.so
-fi
+must pecl install libsodium
