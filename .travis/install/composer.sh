@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+# Find myself.
+HERE="$(dirname "$0")"
+
 # Load dependencies.
-. ./shared.sh
+. "$HERE/shared.sh"
 
 # Install default dependencies.
 must composer install
