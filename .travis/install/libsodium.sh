@@ -10,7 +10,7 @@ HERE="$(dirname "$0")"
 must sudo apt-get update
 
 # Install build packages.
-must sudo apt-get install make build-essential automake php5-dev php-pear
+must sudo apt-get install make build-essential automake
 
 # Clone libsodium repository.
 must git clone git://github.com/jedisct1/libsodium.git
