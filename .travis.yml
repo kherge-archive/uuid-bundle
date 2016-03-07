@@ -5,9 +5,9 @@ cache:
 before_install:
     - bash .travis/install/libsodium.sh
     - bash .travis/install/uuid.sh
+    - phpenv config-rm xdebug.ini
     - bash .travis/install/composer.sh
     - phpenv config-add .travis/extensions.ini
-    - phpenv config-rm xdebug.ini
 
 branches:
     only:
