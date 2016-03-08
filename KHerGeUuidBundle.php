@@ -2,6 +2,7 @@
 
 namespace KHerGe\Bundle\UuidBundle;
 
+use KHerGe\Bundle\UuidBundle\DependencyInjection\KHerGeUuidExtension;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -36,7 +37,7 @@ class KHerGeUuidBundle extends Bundle
     public function getContainerExtension()
     {
         if (null === $this->extension) {
-            $this->extension = $this->createContainerExtension();
+            $this->extension = new KHerGeUuidExtension();
         }
 
         return $this->extension;
