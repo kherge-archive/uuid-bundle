@@ -11,7 +11,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 /**
  * Verifies that the UUID generator functions as intended.
  *
- * @author Kevin Herrera <kherrera@ebsco.com>
+ * @author Kevin Herrera <kevin@herrera.io>
  *
  * @coversDefaultClass \KHerGe\Bundle\UuidBundle\Doctrine\Id\Uuid4Generator
  */

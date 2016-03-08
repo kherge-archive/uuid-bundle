@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 /**
  * Generates v4 UUIDs.
  *
- * @author Kevin Herrera <kherrera@ebsco.com>
+ * @author Kevin Herrera <kevin@herrera.io>
  */
 class Uuid4Generator extends AbstractIdGenerator
 {
