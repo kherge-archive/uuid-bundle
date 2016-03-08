@@ -64,5 +64,44 @@ kherge_uuid:
 
 > You may want to change the random generator.
 
+### Doctrine
+
+You can have Doctrine automatically generate new UUIDs for your new
+entities. Support is limited to only v1 and v4 UUIDs. To use the custom
+generators, you will need to use the following annotations for the ID
+field in your entity:
+
+```php
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table()
+ */
+class Entity
+{
+    /**
+     * @ORM\Column(type="uuid")
+     * @ORM\CustomIdGenerator("KHerGe\Bundle\UuidBundle\Doctrine\Id\Uuid4Generator")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\Id()
+     */
+    private $id;
+}
+```
+
+> Replace the class name with the desired generator.
+
+It is strongly recommended that you enable the use of a global factory.
+Not doing so will allow the UUID library to create and use its own UUID
+factory, independent of the factory service that was configured for
+Symfony.
+
+```yaml
+kherge_uuid:
+    uuid_factory:
+        global: true
+```
+
 [1]: https://github.com/ramsey/uuid
 [2]: https://github.com/ramsey/uuid-doctrine
