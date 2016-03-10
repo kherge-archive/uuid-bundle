@@ -30,7 +30,6 @@ class UuidFactory
                     ->end()
                     ->booleanNode('global')
                         ->info('Use this factory for `Uuid` static calls?')
-                        ->cannotBeEmpty()
                         ->defaultFalse()
                         ->treatNullLike(false)
                     ->end()
