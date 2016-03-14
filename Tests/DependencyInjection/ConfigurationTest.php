@@ -11,18 +11,18 @@ use Symfony\Component\Config\Definition\Processor;
  *
  * @author Kevin Herrera <kevin@herrera.io>
  *
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Builder\DefaultUuidBuilder
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Builder\DegradedUuidBuilder
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Codec\GuidStringCodec
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Codec\StringCodec
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\FeatureSet
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Generator\CombGenerator
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Generator\DefaultTimeGenerator
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Generator\RandomLibAdapter
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Provider\Node\FallbackNodeProvider
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\Provider\Time\FixedTimeProvider
- * @covers \KHerGe\Bundle\Uuidbundle\DependencyInjection\Configuration\UuidFactory
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Builder\DefaultUuidBuilder
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Builder\DegradedUuidBuilder
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Codec\GuidStringCodec
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Codec\StringCodec
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\FeatureSet
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Generator\CombGenerator
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Generator\DefaultTimeGenerator
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Generator\RandomLibAdapter
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Provider\Node\FallbackNodeProvider
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Provider\Time\FixedTimeProvider
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\UuidFactory
  */
 class ConfigurationTest extends TestCase
 {
@@ -82,6 +82,7 @@ class ConfigurationTest extends TestCase
                     'use_guids' => false,
                     'use_pecl' => false
                 ],
+                'param_converter' => true,
                 'uuid_factory' => [
                     'feature_set' => 'kherge_uuid.feature_set',
                     'global' => false,

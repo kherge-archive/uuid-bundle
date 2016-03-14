@@ -59,6 +59,13 @@ class Configuration implements ConfigurationInterface
             'Provider/Node'
         );
 
+        $root
+            ->booleanNode('param_converter')
+                ->info('Enable support for UUID parameter conversion?')
+                ->defaultTrue()
+            ->end()
+        ;
+
         $this->register(
             $root
                 ->arrayNode('time_provider')

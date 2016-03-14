@@ -45,13 +45,15 @@
         "ircmaxell/random-lib": "^1.1",
         "moontoast/math": "^1.1",
         "paragonie/random_compat": "^1.2",
-        "ramsey/uuid-doctrine": "^1.1"
+        "ramsey/uuid-doctrine": "^1.1",
+        "sensio/framework-extra-bundle": "^3.0.2"
     },
 
     "suggest": {
         "ext-libsodium": "For use as a CSPRNG.",
         "ext-uuid": "For generating time-based UUIDs.",
         "moontoast/math": "For using UUID v2 and greater.",
-        "ramsey/uuid-doctrine": "For registering a uuid type with Doctrine."
+        "ramsey/uuid-doctrine": "For registering a uuid type with Doctrine.",
+        "sensio/framework-extra-bundle": "For converting request parameters to Uuid instances."
     }
 }

@@ -5,6 +5,8 @@ namespace KHerGe\Bundle\UuidBundle\DependencyInjection;
 use KHerGe\Bundle\UuidBundle\DependencyInjection\Extension\AbstractExtension;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -43,6 +45,8 @@ class KHerGeUuidExtension extends Extension
         $this->register($container, $config, 'Provider/Node');
         $this->register($container, $config, 'Provider/Time');
         $this->register($container, $config, '');
+
+        $this->registerParamConverter($container, $config);
     }
 
     /**
@@ -97,6 +101,34 @@ class KHerGeUuidExtension extends Extension
                 $instance = new $class();
                 $instance->register($container, $config);
             }
+        }
+    }
+
+    /**
+     * Registers the parameter converted if enabled.
+     *
+     * @param ContainerBuilder $container The DIC builder.
+     * @param array            $config    The bundle settings.
+     */
+    private function registerParamConverter(
+        ContainerBuilder $container,
+        array $config
+    ) {
+        if ($config['param_converter']) {
+            $container->setParameter(
+                'kherge_uuid.param_converter.class',
+                'KHerGe\Bundle\UuidBundle\Request\UuidParamConverter'
+            );
+
+            $container->setDefinition(
+                'kherge_uuid.param_converter',
+                new Definition(
+                    '%kherge_uuid.param_converter.class%',
+                    [
+                        new Reference('kherge_uuid.uuid_factory')
+                    ]
+                )
+            );
         }
     }
 }

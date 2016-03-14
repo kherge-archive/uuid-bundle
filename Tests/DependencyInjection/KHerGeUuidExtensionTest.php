@@ -531,6 +531,12 @@ class KHerGeUuidExtensionTest extends TestCase
                         }
                     ]
                 ]
+            ],
+
+            // 27
+            [
+                'kherge_uuid.param_converter',
+                'KHerGe\Bundle\UuidBundle\Request\UuidParamConverter'
             ]
         ];
     }
