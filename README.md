@@ -103,5 +103,24 @@ kherge_uuid:
         global: true
 ```
 
+### Parameter Conversion
+
+The bundle provides support for converting UUIDs in request parameters. To use
+this feature, you must have the `sensio/framework-extra-bundle` installed to
+support parameter conversion.
+
+```php
+use Ramsey\Uuid\Uuid;
+
+/**
+ * @Route("/entity/{id}")
+ * @ParamConverter("id")
+ */
+public function getAction(Uuid $id)
+{
+    // ... use the uuid ...
+}
+```
+
 [1]: https://github.com/ramsey/uuid
 [2]: https://github.com/ramsey/uuid-doctrine
