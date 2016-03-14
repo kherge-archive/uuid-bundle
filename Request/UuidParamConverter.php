@@ -7,6 +7,7 @@ use Ramsey\Uuid\UuidFactoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Converts a UUID request parameter into a `Uuid` instance.
@@ -40,19 +41,18 @@ class UuidParamConverter implements ParamConverterInterface
         $name = $configuration->getName();
         $uuid = $request->attributes->get($name, null);
 
-        if (null === $uuid) {
-            return false;
-        }
-
         try {
             $request->attributes->set($name, $this->factory->fromString($uuid));
 
             return true;
         } catch (InvalidArgumentException $exception) {
-            // Intentionally do nothing.
+            throw new NotFoundHttpException(
+                sprintf(
+                    'The identifier "%s" is not valid.',
+                    $uuid
+                )
+            );
         }
-
-        return false;
     }
 
     /**
@@ -60,8 +60,6 @@ class UuidParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration)
     {
-        $options = $configuration->getOptions();
-
-        return (isset($options['uuid']) && (true === $options['uuid']));
+        return ('Ramsey\Uuid\Uuid' === $configuration->getClass());
     }
 }

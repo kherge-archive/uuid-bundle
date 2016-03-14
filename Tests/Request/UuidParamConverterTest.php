@@ -37,6 +37,9 @@ class UuidParamConverterTest extends TestCase
      * Verify that invalid parameters are not converted.
      *
      * @covers ::apply
+     *
+     * @expectedException \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @expectedExceptionMessage The identifier "test" is not valid.
      */
     public function testDoesNotApplyToInvalidUuid()
     {
@@ -50,13 +53,9 @@ class UuidParamConverterTest extends TestCase
             ]
         );
 
-        self::assertFalse($this->converter->apply($request, $converter));
-        self::assertNull($request->attributes->get('uuid'));
-
         $request->attributes->set('uuid', 'test');
 
-        self::assertFalse($this->converter->apply($request, $converter));
-        self::assertEquals('test', $request->attributes->get('uuid'));
+        $this->converter->apply($request, $converter);
     }
 
     /**
@@ -71,7 +70,7 @@ class UuidParamConverterTest extends TestCase
         $request = Request::create('');
         $request->attributes->set('uuid', $uuid);
 
-        $converter = new ParamConverter(
+        $configuration = new ParamConverter(
             [
                 'name' => 'uuid',
                 'options' => [
@@ -80,7 +79,7 @@ class UuidParamConverterTest extends TestCase
             ]
         );
 
-        self::assertTrue($this->converter->apply($request, $converter));
+        self::assertTrue($this->converter->apply($request, $configuration));
         self::assertInstanceOf(
             'Ramsey\Uuid\Uuid',
             $request->attributes->get('uuid')
@@ -98,17 +97,17 @@ class UuidParamConverterTest extends TestCase
      */
     public function testSupportsConfiguration()
     {
-        $converter = new ParamConverter(
+        $configuration = new ParamConverter(
             [
                 'name' => 'uuid'
             ]
         );
 
-        self::assertFalse($this->converter->supports($converter));
+        self::assertFalse($this->converter->supports($configuration));
 
-        $converter->setOptions(['uuid' => true]);
+        $configuration->setClass('Ramsey\Uuid\Uuid');
 
-        self::assertTrue($this->converter->supports($converter));
+        self::assertTrue($this->converter->supports($configuration));
     }
 
     /**
