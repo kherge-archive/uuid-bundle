@@ -68,6 +68,15 @@ class Configuration implements ConfigurationInterface
 
         $this->register(
             $root
+                ->arrayNode('serializer')
+                ->info('Settings for serialization services.')
+                ->addDefaultsIfNotSet()
+                ->children(),
+            'Serializer'
+        );
+
+        $this->register(
+            $root
                 ->arrayNode('time_provider')
                 ->info('Settings for time provider services.')
                 ->children(),
@@ -120,6 +129,7 @@ class Configuration implements ConfigurationInterface
 
             if (is_file($file)) {
                 $instance = new $class();
+                /** @noinspection PhpUndefinedMethodInspection */
                 $instance->addDefinitions($node);
             }
         }

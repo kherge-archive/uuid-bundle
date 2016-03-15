@@ -40,6 +40,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Extension\Provider\Node\SystemNodeProvider
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Extension\Provider\Time\FixedTimeProvider
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Extension\Provider\Time\SystemTimeProvider
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Extension\Serializer\UuidHandler
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Extension\UuidFactory
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\KHerGeUuidExtension
  */
@@ -488,7 +489,7 @@ class KHerGeUuidExtensionTest extends TestCase
                                     ->get('kherge_uuid.feature_set')
                                     ->getBuilder(),
                                 $value,
-                                'The UUID bulider for `FeatureSet` and `UuidBuilder` should be identical.'
+                                'The UUID builder for `FeatureSet` and `UuidBuilder` should be identical.'
                             );
                         }
                     ]
@@ -537,6 +538,19 @@ class KHerGeUuidExtensionTest extends TestCase
             [
                 'kherge_uuid.param_converter',
                 'KHerGe\Bundle\UuidBundle\Request\UuidParamConverter'
+            ],
+
+            // 28
+            [
+                'kherge_uuid.serializer.uuid_handler',
+                'KHerGe\Bundle\UuidBundle\Serializer\UuidHandler',
+                [
+                    'config' => [
+                        'serializer' => [
+                            'uuid_handler' => true
+                        ]
+                    ]
+                ]
             ]
         ];
     }

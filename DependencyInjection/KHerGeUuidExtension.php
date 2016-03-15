@@ -21,6 +21,7 @@ class KHerGeUuidExtension extends Extension
      *
      * @codeCoverageIgnore
      */
+    /** @noinspection PhpMissingParentCallCommonInspection */
     public function getAlias()
     {
         return 'kherge_uuid';
@@ -44,6 +45,7 @@ class KHerGeUuidExtension extends Extension
         $this->register($container, $config, 'Generator');
         $this->register($container, $config, 'Provider/Node');
         $this->register($container, $config, 'Provider/Time');
+        $this->register($container, $config, 'Serializer');
         $this->register($container, $config, '');
 
         $this->registerParamConverter($container, $config);

@@ -22,6 +22,7 @@ use Symfony\Component\Config\Definition\Processor;
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Generator\RandomLibAdapter
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Provider\Node\FallbackNodeProvider
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Provider\Time\FixedTimeProvider
+ * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\Serializer\UuidHandler
  * @covers \KHerGe\Bundle\UuidBundle\DependencyInjection\Configuration\UuidFactory
  */
 class ConfigurationTest extends TestCase
@@ -90,6 +91,9 @@ class ConfigurationTest extends TestCase
                     'random_generator' => 'kherge_uuid.generator.mt_rand',
                     'time_generator' => 'kherge_uuid.generator.default_time',
                     'uuid_builder' => 'kherge_uuid.builder.default'
+                ],
+                'serializer' => [
+                    'uuid_handler' => true
                 ]
             ],
             $this->processConfig()
