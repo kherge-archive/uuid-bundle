@@ -5,8 +5,8 @@
     "keywords": ["bundle", "symfony", "uuid"],
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/kherge/uuid-bundle/issues",
-        "source": "https://github.com/kherge/uuid-bundle"
+        "issues": "https://github.com/kherge-php/uuid-bundle/issues",
+        "source": "https://github.com/kherge-php/uuid-bundle"
     },
 
     "authors": [
