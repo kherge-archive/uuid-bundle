@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/kherge/uuid-bundle.svg?branch=master)](https://travis-ci.org/kherge/uuid-bundle)
+[![Build Status](https://travis-ci.org/kherge-php/uuid-bundle.svg?branch=master)](https://travis-ci.org/kherge-php/uuid-bundle)
+[![Packagist](https://img.shields.io/packagist/v/kherge/uuid-bundle.svg)](https://packagist.org/packages/kherge/uuid-bundle)
+[![Packagist Pre Release](https://img.shields.io/packagist/vpre/kherge/uuid-bundle.svg)](https://packagist.org/packages/kherge/uuid-bundle)
 
 UUID Bundle
 ===========
