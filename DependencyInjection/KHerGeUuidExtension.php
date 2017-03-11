@@ -122,14 +122,17 @@ class KHerGeUuidExtension extends Extension
                 'KHerGe\Bundle\UuidBundle\Request\UuidParamConverter'
             );
 
+            $definition = new Definition(
+                '%kherge_uuid.param_converter.class%',
+                [
+                    new Reference('kherge_uuid.uuid_factory')
+                ]
+            );
+            $definition->addTag('request.param_converter');
+
             $container->setDefinition(
                 'kherge_uuid.param_converter',
-                new Definition(
-                    '%kherge_uuid.param_converter.class%',
-                    [
-                        new Reference('kherge_uuid.uuid_factory')
-                    ]
-                )
+                $definition
             );
         }
     }
